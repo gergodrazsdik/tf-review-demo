@@ -16,3 +16,11 @@ resource "azurerm_virtual_network" "main" {
     project     = "tf-review-demo"
   }
 }
+
+# Seeded case C5: no tags.
+resource "azurerm_virtual_network" "seed" {
+  name                = "vnet-seed-prod"
+  resource_group_name = data.azurerm_resource_group.target.name
+  location            = data.azurerm_resource_group.target.location
+  address_space       = ["10.43.0.0/16"]
+}
