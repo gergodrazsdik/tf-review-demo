@@ -42,7 +42,7 @@
             "context": "lint"
           },
           {
-            "context": "plan"
+            "context": "tf-review / plan"
           }
         ]
       }
