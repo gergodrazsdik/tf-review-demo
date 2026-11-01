@@ -1,0 +1,10 @@
+---
+# The reviewer reads this from the PR's base commit, so changes apply after they merge.
+version: 1
+tool_version: 1.13.2
+standards:
+  repository: gergodrazsdik/tf-standards
+  commit: 8def462242838d3c56ca88d1082def3a6fa15360
+agents: [conventions]
+gate:
+  mode: advisory

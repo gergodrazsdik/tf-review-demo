@@ -8,30 +8,10 @@ permissions:
   contents: read
 
 jobs:
-  plan:
-    # Fork PRs get no OIDC token, so they can't reach Azure.
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-24.04
+  tf-review:
+    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@083db028e127f4749b442be64ed15b42f144cc95 # v0.0.1-rc.1
     permissions:
       contents: read
       id-token: write
-    env:
-      ARM_USE_OIDC: "true"
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID_PLAN }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      TF_STATE_RESOURCE_GROUP: ${{ vars.TF_STATE_RESOURCE_GROUP }}
-      TF_STATE_STORAGE_ACCOUNT: ${{ vars.TF_STATE_STORAGE_ACCOUNT }}
-      TF_STATE_CONTAINER: ${{ vars.TF_STATE_CONTAINER }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
-        with:
-          tofu_version: 1.13.2
-          tofu_wrapper: false
-      - name: Init
-        run: scripts/tofu-init.sh
-      - name: Plan
-        run: tofu -chdir=infra plan -input=false -no-color
+      pull-requests: write
+    secrets: inherit
