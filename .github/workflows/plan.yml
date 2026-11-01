@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   tf-review:
-    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@19caa9e20ea3010436e8e902936d8c58fd163621 # v0.0.3
+    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@90566ad1dccd3e3882807d29044cede51f46b7af # v0.0.4-rc.1
     permissions:
       contents: read
       id-token: write
