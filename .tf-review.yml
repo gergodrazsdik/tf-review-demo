@@ -5,6 +5,6 @@ tool_version: 1.13.2
 standards:
   repository: gergodrazsdik/tf-standards
   commit: 3f4d064b7059941dd268cd69cf694efec21c0c49
-agents: [conventions]
+agents: [conventions, cost]
 gate:
   mode: advisory
