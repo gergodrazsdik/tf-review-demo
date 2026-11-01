@@ -12,7 +12,7 @@ resource "azurerm_virtual_network" "main" {
 
   tags = {
     owner       = "gergodrazsdik"
-    environment = "prod"
+    environment = "production"
     project     = "tf-review-demo"
   }
 }
