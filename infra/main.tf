@@ -11,7 +11,7 @@ resource "azurerm_virtual_network" "main" {
   address_space       = ["10.42.0.0/16"]
 
   tags = {
-    owner       = "gergodrazsdik"
+    owner       = "platform-team"
     environment = "prod"
     project     = "tf-review-demo"
   }
