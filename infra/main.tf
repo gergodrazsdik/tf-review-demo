@@ -16,3 +16,17 @@ resource "azurerm_virtual_network" "main" {
     project     = "tf-review-demo"
   }
 }
+
+# Seeded case C6: a name that breaks ADR-001.
+resource "azurerm_virtual_network" "seed" {
+  name                = "MyBadNetwork"
+  resource_group_name = data.azurerm_resource_group.target.name
+  location            = data.azurerm_resource_group.target.location
+  address_space       = ["10.44.0.0/16"]
+
+  tags = {
+    owner       = "gergodrazsdik"
+    environment = "prod"
+    project     = "tf-review-demo"
+  }
+}
