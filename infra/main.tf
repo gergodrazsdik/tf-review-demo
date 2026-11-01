@@ -16,3 +16,18 @@ resource "azurerm_virtual_network" "main" {
     project     = "tf-review-demo"
   }
 }
+
+# Test only: a paid resource, to see a real priced comment.
+resource "azurerm_service_plan" "cost_test" {
+  name                = "asp-cost-test-prod"
+  resource_group_name = data.azurerm_resource_group.target.name
+  location            = data.azurerm_resource_group.target.location
+  os_type             = "Linux"
+  sku_name            = "B1"
+
+  tags = {
+    owner       = "gergodrazsdik"
+    environment = "prod"
+    project     = "tf-review-demo"
+  }
+}
