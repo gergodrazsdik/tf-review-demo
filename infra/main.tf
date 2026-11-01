@@ -16,3 +16,12 @@ resource "azurerm_virtual_network" "main" {
     project     = "tf-review-demo"
   }
 }
+
+# Seeded case C3: Owner at subscription scope.
+data "azurerm_subscription" "current" {}
+
+resource "azurerm_role_assignment" "seed" {
+  scope                = data.azurerm_subscription.current.id
+  role_definition_name = "Owner"
+  principal_id         = "00000000-0000-0000-0000-000000000000"
+}
