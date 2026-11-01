@@ -16,3 +16,11 @@ resource "azurerm_virtual_network" "main" {
     project     = "tf-review-demo"
   }
 }
+
+# Seeded case C10: subnets don't support tags, so this must not be reported.
+resource "azurerm_subnet" "seed" {
+  name                 = "snet-seed-prod"
+  resource_group_name  = data.azurerm_resource_group.target.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.42.1.0/24"]
+}
