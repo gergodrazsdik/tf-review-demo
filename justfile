@@ -13,16 +13,20 @@ claude *args:
 hooks:
     lefthook install
 
-# Run every pre-commit check on all files; the CI lint job runs this too
+# Run the checks that need no plugins, so they also work in the Claude sandbox; CI runs this too
 [group('dev')]
 lint:
-    tofu -chdir=infra init -backend=false -lockfile=readonly -input=false
-    tofu -chdir=infra validate
     tofu fmt -check -recursive .
-    tflint --init
-    tflint --recursive --config "$PWD/.tflint.hcl"
     yamllint --strict .
     actionlint
     pinact run --check
     shellcheck scripts/*.sh
     gitleaks git --no-banner
+
+# Run the checks that start provider or ruleset plugins, which can't run in the Claude sandbox; CI runs this too
+[group('dev')]
+validate:
+    tofu -chdir=infra init -backend=false -lockfile=readonly -input=false
+    tofu -chdir=infra validate
+    tflint --init
+    tflint --recursive --config "$PWD/.tflint.hcl"

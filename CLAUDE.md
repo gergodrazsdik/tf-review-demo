@@ -4,7 +4,8 @@ GitHub template for an OpenTofu project reviewed by `tf-review`. Its seeded bad-
 
 ## Commands
 
-- `just lint`: every check the CI `lint` job runs
+- `just lint`: the checks that work in the Claude sandbox
+- `just validate`: `tofu validate` and `tflint`. Their plugins can't start in the sandbox, so run this with the sandbox disabled for that one command
 - `just hooks`: install the git hooks
 
 ## Conventions
