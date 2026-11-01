@@ -16,6 +16,8 @@ hooks:
 # Run every pre-commit check on all files; the CI lint job runs this too
 [group('dev')]
 lint:
+    tofu -chdir=infra init -backend=false -lockfile=readonly -input=false
+    tofu -chdir=infra validate
     tofu fmt -check -recursive .
     tflint --init
     tflint --recursive --config "$PWD/.tflint.hcl"
