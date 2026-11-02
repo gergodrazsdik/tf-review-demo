@@ -7,7 +7,6 @@ resource "azurerm_storage_account" "service_test" {
   account_tier                    = "Standard"
   account_replication_type        = "LRS"
   allow_nested_items_to_be_public = true
-  min_tls_version                 = "TLS1_0"
 
   lifecycle {
     prevent_destroy = true
