@@ -4,7 +4,7 @@ version: 1
 tool_version: 1.13.2
 standards:
   repository: gergodrazsdik/tf-standards
-  commit: 0a1803f283f8a34a6a9a40624caf63678cbace58
+  commit: adf50af6607b4e2b28a7e3566db8adfdecabe683
 agents: [conventions, security, cost]
 gate:
   mode: advisory
