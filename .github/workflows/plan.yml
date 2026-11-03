@@ -9,7 +9,8 @@ permissions:
 
 jobs:
   tf-review:
-    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@334c6ff345968f64ad2ca5571f1e670bdf8245aa # v0.0.9
+    # yamllint disable-line rule:line-length
+    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@b6e17acc4a1f4027fd7ec256c7c9f330570869bb # v0.0.10-rc.1
     permissions:
       contents: read
       id-token: write
