@@ -9,7 +9,9 @@ permissions:
 
 jobs:
   tf-review:
-    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@bd22a24770ecaae4ddb7fad9e369965604c0cfba # v0.0.11
+    # An rc pin is only for testing a release, and this branch never merges.
+    # yamllint disable-line rule:line-length
+    uses: gergodrazsdik/tf-review/.github/workflows/tf-review.yml@359b61d4a05fa000ea46cbb384b9c4412109ea6c # v0.0.12-rc.1
     permissions:
       contents: read
       id-token: write
