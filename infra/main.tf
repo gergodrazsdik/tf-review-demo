@@ -55,3 +55,21 @@ resource "azurerm_subnet_network_security_group_association" "app" {
   subnet_id                 = azurerm_subnet.app.id
   network_security_group_id = azurerm_network_security_group.app.id
 }
+
+# A plan too large for one model call, to prove the reviewer batches and paces it. Security groups cost nothing, and
+# this branch is never merged or applied.
+resource "azurerm_network_security_group" "bulk" {
+  count               = 24
+  name                = "nsg-bulk${count.index}-tf-review-demo-prod"
+  resource_group_name = data.azurerm_resource_group.target.name
+  location            = data.azurerm_resource_group.target.location
+
+  tags = merge(
+    {
+      owner       = "gergodrazsdik"
+      environment = "prod"
+      project     = "tf-review-demo"
+    },
+    { for i in range(40) : "memo${i}" => format("%0220d", i) },
+  )
+}
