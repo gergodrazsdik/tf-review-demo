@@ -13,8 +13,7 @@ terraform {
 
   # State encryption (tf-review D59): a data key wrapped by this repo's RSA key in tf-review's state vault, which only
   # its plan and apply identities can use; bootstrap names the key state-<repo>, which is state-<workload> here. The
-  # fallback reads the state written before encryption; the first apply rewrites it encrypted, and a later change
-  # removes the fallback and enforces encryption.
+  # state was rewritten encrypted on 2026-11-06.
   encryption {
     key_provider "azure_vault" "state" {
       vault_uri      = "https://kv-tf-review-state-prod.vault.azure.net"
@@ -30,14 +29,10 @@ terraform {
       keys = key_provider.azure_vault.state
     }
 
-    method "unencrypted" "migrate" {}
-
+    # Enforced, so OpenTofu refuses to write this state unencrypted.
     state {
-      method = method.aes_gcm.state
-
-      fallback {
-        method = method.unencrypted.migrate
-      }
+      method   = method.aes_gcm.state
+      enforced = true
     }
   }
 }
