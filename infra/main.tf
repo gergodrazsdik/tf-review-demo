@@ -1,40 +1,47 @@
+# What a repo made from this template changes: the workload names the resource group, every resource (ADR-001)
+# and the project tag, and the owner is whoever answers for it (ADR-002). Bootstrap's repos map names the same
+# resource group.
+locals {
+  workload    = "tf-review-demo"
+  environment = "prod"
+  owner       = "gergodrazsdik"
+
+  tags = {
+    owner       = local.owner
+    environment = local.environment
+    project     = local.workload
+  }
+}
+
 # Bootstrap in tf-review creates this resource group and the identities' roles on it.
 data "azurerm_resource_group" "target" {
-  name = "rg-tf-review-demo-prod"
+  name = "rg-${local.workload}-${local.environment}"
 }
 
 # A virtual network costs nothing, so the demo stays free while it's deployed.
 resource "azurerm_virtual_network" "main" {
-  name                = "vnet-tf-review-demo-prod"
+  name                = "vnet-${local.workload}-${local.environment}"
   resource_group_name = data.azurerm_resource_group.target.name
   location            = data.azurerm_resource_group.target.location
   address_space       = ["10.42.0.0/16"]
 
-  tags = {
-    owner       = "gergodrazsdik"
-    environment = "production"
-    project     = "tf-review-demo"
-  }
+  tags = merge(local.tags, { environment = "production" })
 }
 
 # A subnet for a web front end, with HTTPS open to the internet and nothing else. Subnets and NSGs cost nothing.
 resource "azurerm_subnet" "app" {
-  name                 = "snet-app-tf-review-demo-prod"
+  name                 = "snet-app-${local.workload}-${local.environment}"
   resource_group_name  = data.azurerm_resource_group.target.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.42.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "app" {
-  name                = "nsg-app-tf-review-demo-prod"
+  name                = "nsg-app-${local.workload}-${local.environment}"
   resource_group_name = data.azurerm_resource_group.target.name
   location            = data.azurerm_resource_group.target.location
 
-  tags = {
-    owner       = "gergodrazsdik"
-    environment = "prod"
-    project     = "tf-review-demo"
-  }
+  tags = local.tags
 }
 
 resource "azurerm_network_security_rule" "https_in" {
