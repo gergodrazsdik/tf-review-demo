@@ -11,5 +11,17 @@
       "Bash(just bootstrap-migrate*)",
       "Bash(just secrets-sync*)"
     ]
+  },
+  "extraKnownMarketplaces": {
+    "tf-review": {
+      "source": {
+        "source": "github",
+        "repo": "gergodrazsdik/tf-review",
+        "ref": "plugin-v0.1.0"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "tf-review-opentofu@tf-review": true
   }
 }
