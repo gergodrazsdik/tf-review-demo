@@ -8,5 +8,6 @@ standards:
 agents: [conventions, security, cost]
 # Reference material from Azure Policy, the Cloud Adoption Framework and the azurerm docs, chosen per agent.
 references: true
+# Blocking for a short proof of D55, then back to advisory, which a repo made from this template starts with.
 gate:
-  mode: advisory
+  mode: blocking
