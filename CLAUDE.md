@@ -10,8 +10,8 @@ GitHub template for an OpenTofu project reviewed by `tf-review`. Its seeded bad-
 
 ## Conventions
 
-- Plans run on every PR through the plan identity. Applies run on merge, in CI, behind the `prod` environment approval: agents never apply.
+- Plans run on every PR through the plan identity, which only reads state. On merge, `apply.yml` plans `main`, and the `prod` approval applies exactly that plan; a weekly run of the same plan fails on drift. Agents never apply.
 - Resources follow ADR-001 (names) and ADR-002 (tags) in `tf-standards`, except on seeded branches that break them on purpose.
 - Bootstrap in `tf-review` creates this repo's state container, identities, Actions secrets and variables, and environments.
 - Plans stay in the job log, not PR comments, and the Azure IDs are Actions secrets so logs mask them: secrets aren't masked in anything a workflow posts to a PR, so never post raw plan output.
-- `main` takes squash-merged PRs only, and third-party actions are pinned to full SHAs with `pinact`.
+- PRs merge by fast-forward (`just merge <pr>` in `tf-review`, which the user runs), so each commit lands as written: keep commits focused and signed. Third-party actions are pinned to full SHAs with `pinact`.
