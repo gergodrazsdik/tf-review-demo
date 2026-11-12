@@ -62,3 +62,18 @@ resource "azurerm_subnet_network_security_group_association" "app" {
   subnet_id                 = azurerm_subnet.app.id
   network_security_group_id = azurerm_network_security_group.app.id
 }
+
+
+# Seeded case C6: a name that breaks ADR-001.
+resource "azurerm_virtual_network" "seed" {
+  name                = "MyBadNetwork"
+  resource_group_name = data.azurerm_resource_group.target.name
+  location            = data.azurerm_resource_group.target.location
+  address_space       = ["10.44.0.0/16"]
+
+  tags = {
+    owner       = "gergodrazsdik"
+    environment = "prod"
+    project     = "tf-review-demo"
+  }
+}
