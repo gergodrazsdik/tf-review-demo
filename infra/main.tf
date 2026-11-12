@@ -62,3 +62,12 @@ resource "azurerm_subnet_network_security_group_association" "app" {
   subnet_id                 = azurerm_subnet.app.id
   network_security_group_id = azurerm_network_security_group.app.id
 }
+
+
+# Seeded case C10: subnets don't support tags, so this must not be reported.
+resource "azurerm_subnet" "seed" {
+  name                 = "snet-seed-prod"
+  resource_group_name  = data.azurerm_resource_group.target.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.42.2.0/24"]
+}
