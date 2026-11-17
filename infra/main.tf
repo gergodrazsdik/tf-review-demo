@@ -25,7 +25,7 @@ resource "azurerm_virtual_network" "main" {
   location            = data.azurerm_resource_group.target.location
   address_space       = ["10.42.0.0/16"]
 
-  tags = local.tags
+  tags = merge(local.tags, { environment = "production" })
 }
 
 # A subnet for a web front end, with HTTPS open to the internet and nothing else. Subnets and NSGs cost nothing.
